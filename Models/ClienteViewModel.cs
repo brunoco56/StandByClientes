@@ -4,7 +4,8 @@ namespace StandByClientes.Models
 {
     public class ClienteViewModel
     {
-        public string ClienteId { get; set; }
+
+        public string Id { get; set; }
         public string Razao_Social { get; set; }
         public string Cnpj { get; set; }
         public DateTime? Data_Fundacao { get; set; }
@@ -15,12 +16,11 @@ namespace StandByClientes.Models
             {
                 //Todo cliente com menos de um ano da data de fundação deverá ser inserido na base
                 //com a campo quarentena igual a true;
-                int tempo = CalculaDiferencaDatasaDatas(DateTime.Now, Convert.ToDateTime(this.Data_Fundacao));
+                int qtdDeDias = CalculaDiferencaDatasaDatas(DateTime.Now, Convert.ToDateTime(this.Data_Fundacao));
 
-                if (tempo < 365)
-                {
+                if (qtdDeDias < 365)
                     return true;
-                }
+
                 return false;
             }
         }
@@ -34,19 +34,17 @@ namespace StandByClientes.Models
                 //• Se o valor o capital da empresa for > 10.000, 00 && <= 1.000.000, 00 sua classificação
                 //deverá ser B;
                 //• Se o valor o capital da empresa for > 1.000.000, 00 sua classificação deverá ser A.   
-                if (this.Capital <= 10.000)
-                {
+                if (Capital <= 10000)
                     return "C";
-                }
-                if (this.Capital > 10.000)
-                {
-                    return "C";
-                }
+
+                if (Capital > 10000 && Capital <= 1000000)
+                    return "B";
+
                 return "A";
             }
         }
 
-        public static int CalculaDiferencaDatasaDatas(DateTime dataFinal, DateTime dataInicial)
+        public int CalculaDiferencaDatasaDatas(DateTime dataFinal, DateTime dataInicial)
         {
             TimeSpan date = Convert.ToDateTime(dataFinal) - Convert.ToDateTime(dataInicial);
 
