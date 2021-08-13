@@ -7,10 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Criar Novo</a>
-
-</p>
-
+    <a asp-action="Create">Criar Novo</a><p>
 <p>
     @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
     {
@@ -24,4 +21,4 @@
 
 @Html.Partial("_Clientes", Model)
 
-<script type="text/javascript" src="/js/Clientes/Index.js"></script>
+<script type="text/javascript" src="/js/Clientes/Index.js"/>
