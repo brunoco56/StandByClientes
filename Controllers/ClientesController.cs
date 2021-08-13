@@ -21,9 +21,31 @@ namespace StandByClientes.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Ciente.ToListAsync());
+        public async Task<IActionResult> Index(string RazaoSocial, string cnpj, bool ativo)
+        {           
+
+            if (RazaoSocial == null && cnpj == null && ativo ==false)
+            {
+                return View(await _context.Ciente.ToListAsync());
+            }
+
+            if (RazaoSocial == null || RazaoSocial == "")
+            {
+                var cliente = await _context.Ciente.FindAsync(RazaoSocial);
+
+                string cnpj1; 
+                
+                var teste = _context.Ciente.Where(x => x.Cnpj == cnpj).ToList();
+
+                foreach (var item in teste)
+                {
+                    cnpj1 = item.Cnpj;
+                }
+
+
+                return View(_context.Ciente.Where(x => x.Cnpj == cnpj).ToList());
+            }
+            return View(_context.Ciente.ToListAsync());
         }
 
         //public class PesquisarViewModel
@@ -32,10 +54,14 @@ namespace StandByClientes.Controllers
         //    public string Cnpj { get; set; }
         //}
 
-        public void Pesquisar(ClienteViewModel pesquisar)
+        public async Task<ViewResult> Pesquisar(string RazaoSocial, string cnpj, bool ativo)
         {
-           _context.Ciente.Where(x => x.Razao_Social == pesquisar.Razao_Social).ToListAsync();
-           
+            if (RazaoSocial == null || RazaoSocial =="")
+            {  
+                return View(_context.Ciente.Where(x => x.Cnpj == cnpj).FirstOrDefault());
+            }
+
+            return View(await _context.Ciente.ToListAsync());
         }
 
 
