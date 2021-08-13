@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StandByClientes.Contexto;
 using StandByClientes.Entidades;
 using StandByClientes.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StandByClientes.Controllers
 {
@@ -49,9 +45,7 @@ namespace StandByClientes.Controllers
                 q = q.OrderBy(c => c.Status_Cliente);
                 return View(q.ToList());
             }
-
-            return View(await _context.Cliente.ToListAsync());           
-                       
+            return View(await _context.Cliente.ToListAsync());
         }
 
 
@@ -118,10 +112,6 @@ namespace StandByClientes.Controllers
          
             return View(cliente);
         }
-
-
-
-
 
 
         // GET: Clientes/Edit/5
@@ -192,8 +182,6 @@ namespace StandByClientes.Controllers
         }
 
 
-
-
         // GET: Clientes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -222,10 +210,6 @@ namespace StandByClientes.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-
-
-
 
         private bool ClienteExists(int id)
         {

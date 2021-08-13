@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<StandByClientes.Entidades.Cliente>
 
+<div id="divClientes">
+
 <table class="table">
     <thead>
         <tr>
@@ -53,12 +55,13 @@
                     @Html.DisplayFor(modelItem => item.Classificacao)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
+</div>

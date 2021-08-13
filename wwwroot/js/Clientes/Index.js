@@ -3,8 +3,9 @@ var txtRazaoSocial = '#razao-social';
 var txtCnpj = '#cnpj';
 
 $(document).ready(function () {
-	alert('aqui');
-	$(document).on('click', btnPesquisar, function () {
+	
+    $(document).on('click', Pesquisar, function () {
+        alert();
 		var razaoSocial = $(txtRazaoSocial).val();
 		var cnpj = $(txtCnpj).val();
 
@@ -15,7 +16,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/clientes/pesquisar',
+            url: '/Clientes/Index',
             data: pesquisarModel,
             async: true,
             cache: false,
@@ -23,7 +24,7 @@ $(document).ready(function () {
 
             },
             error: function () {
-                alert('HOuve uma falha ao buscar os daos da rota /clientes/pesquisar');
+                alert('Houve uma falha ao buscar os daos da rota /clientes/pesquisar');
             }
         });
 	});
