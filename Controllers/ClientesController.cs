@@ -21,47 +21,31 @@ namespace StandByClientes.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index(string RazaoSocial, string cnpj, bool ativo)
-        {           
-
-            if (RazaoSocial == null && cnpj == null && ativo ==false)
-            {
-                return View(await _context.Ciente.ToListAsync());
-            }
-
-            if (RazaoSocial == null || RazaoSocial == "")
-            {
-                var cliente = await _context.Ciente.FindAsync(RazaoSocial);
-
-                string cnpj1; 
-                
-                var teste = _context.Ciente.Where(x => x.Cnpj == cnpj).ToList();
-
-                foreach (var item in teste)
-                {
-                    cnpj1 = item.Cnpj;
-                }
-
-
-                return View(_context.Ciente.Where(x => x.Cnpj == cnpj).ToList());
-            }
-            return View(_context.Ciente.ToListAsync());
-        }
-
-        //public class PesquisarViewModel
-        //{
-        //    public string RazaoSocial { get; set; }
-        //    public string Cnpj { get; set; }
-        //}
-
-        public async Task<ViewResult> Pesquisar(string RazaoSocial, string cnpj, bool ativo)
+        public async Task<IActionResult> Index(string razaoSocial,bool Ativo, string cnpj)
         {
-            if (RazaoSocial == null || RazaoSocial =="")
-            {  
-                return View(_context.Ciente.Where(x => x.Cnpj == cnpj).FirstOrDefault());
+            var q = _context.Ciente.AsQueryable();
+
+            if (!string.IsNullOrEmpty(razaoSocial))
+            {
+                q = q.Where(x => x.Razao_Social.Contains(razaoSocial));
+                q = q.OrderBy(c => c.Razao_Social);
+                return View(q.ToList());
+            }
+            if (!string.IsNullOrEmpty(cnpj))
+            {
+                q = q.Where(x => x.Cnpj.Contains(cnpj));
+                q = q.OrderBy(c => c.Cnpj);
+                return View(q.ToList());
+            }
+            if (Ativo)
+            {
+                q = q.Where(x => x.Status_Cliente==true);
+                q = q.OrderBy(c => c.Status_Cliente);
+                return View(q.ToList());
             }
 
-            return View(await _context.Ciente.ToListAsync());
+            return View(await _context.Ciente.ToListAsync());           
+                       
         }
 
 

@@ -11,7 +11,21 @@
 
 </p>
 
-<div class="row">
+<p>
+
+    @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
+    {
+        <label>@Html.RadioButton("Ativo", false)Inativo</label>;
+        <label>@Html.RadioButton("Ativo", true)Ativo</label>;
+        <label> @Html.TextBox("razaoSocial") Razão Social </label>
+        <label> @Html.TextBox("cnpj") CNPJ </label>
+        <input type="submit" value="Pesquisar" />;
+    }
+</p>
+
+
+
+@*<div class="row">
     <div class="col-md-3">
         <div class="form-group">
             <label>Razão social</label>
@@ -33,13 +47,13 @@
             <input class="form-check-input" type="radio" id="ativo" value="false" name="ativo">
             <label class="form-check-label" for="inativo">Inativo</label>
         </div>
-    </div>
+    </div>*@
 
-    <div class="col-md-3">
-        <button type="button" class="btn btn-primary" id="btnPesquisar">Pesquisar</button>
-    </div>
+@*<div class="col-md-3">
+            <button type="button" class="btn btn-primary" id="btnPesquisar">Pesquisar</button>
+        </div>
 
-</div>
+    </div>*@
 <table class="table">
     <thead>
         <tr>
