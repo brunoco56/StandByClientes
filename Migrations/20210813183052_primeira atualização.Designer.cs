@@ -10,8 +10,8 @@ using StandByClientes.Contexto;
 namespace StandByClientes.Migrations
 {
     [DbContext(typeof(Contexto.Contexto))]
-    [Migration("20210812214740_migration_")]
-    partial class migration_
+    [Migration("20210813183052_primeira atualização")]
+    partial class primeiraatualização
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace StandByClientes.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ciente");
+                    b.ToTable("Cliente");
                 });
 #pragma warning restore 612, 618
         }

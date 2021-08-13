@@ -15,106 +15,15 @@
 
     @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
     {
-        <label>@Html.RadioButton("Ativo", false)Inativo</label>;
         <label>@Html.RadioButton("Ativo", true)Ativo</label>;
+        <label>@Html.RadioButton("Ativo", false, new { Checked = true })Inativo</label>;
         <label> @Html.TextBox("razaoSocial") Razão Social </label>
         <label> @Html.TextBox("cnpj") CNPJ </label>
         <input type="submit" value="Pesquisar" />;
     }
 </p>
 
-
-
-@*<div class="row">
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>Razão social</label>
-            <input type="text" class="form-control" id="razao_social" />
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label>CNPJ</label>
-            <input type="text" class="form-control" id="cnpj" />
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="ativo" value="true" name="ativo">
-            <label class="form-check-label" for="ativo">Ativo</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" id="ativo" value="false" name="ativo">
-            <label class="form-check-label" for="inativo">Inativo</label>
-        </div>
-    </div>*@
-
-@*<div class="col-md-3">
-            <button type="button" class="btn btn-primary" id="btnPesquisar">Pesquisar</button>
-        </div>
-
-    </div>*@
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Razao_Social)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cnpj)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Data_Fundacao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Capital)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quarentena)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status_Cliente)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Classificacao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Razao_Social)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cnpj)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Data_Fundacao)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Capital)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quarentena)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status_Cliente)
-                </td>
-                <td id="classificacao">
-                    @Html.DisplayFor(modelItem => item.Classificacao)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+@Html.Partial("Clientes", Model)
 
 <script type="text/javascript" src="/js/Clientes/Index.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

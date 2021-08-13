@@ -49,7 +49,7 @@ namespace StandByClientes.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ciente");
+                    b.ToTable("Cliente");
                 });
 #pragma warning restore 612, 618
         }

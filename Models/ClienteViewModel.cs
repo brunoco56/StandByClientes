@@ -5,7 +5,7 @@ namespace StandByClientes.Models
     public class ClienteViewModel
     {
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Razao_Social { get; set; }
         public string Cnpj { get; set; }
         public DateTime? Data_Fundacao { get; set; }

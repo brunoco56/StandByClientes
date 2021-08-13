@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StandByClientes.Migrations
 {
-    public partial class migration_ : Migration
+    public partial class primeiraatualização : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Ciente",
+                name: "Cliente",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -23,14 +23,14 @@ namespace StandByClientes.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ciente", x => x.Id);
+                    table.PrimaryKey("PK_Cliente", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ciente");
+                name: "Cliente");
         }
     }
 }
