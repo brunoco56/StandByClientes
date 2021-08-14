@@ -11,8 +11,8 @@
 <p>
     @using (Html.BeginForm("Index", "Clientes", FormMethod.Get))
     {
-        <label>@Html.RadioButton("Ativo", true)Ativo</label>;
-        <label>@Html.RadioButton("Ativo", false, new { Checked = true })Inativo</label>;
+        <label>@Html.RadioButton("Ativo",1)Ativo</label>;
+        <label>@Html.RadioButton("Ativo",-1)Inativo</label>;
         <label> @Html.TextBox("razaoSocial") Razão Social </label>
         <label> @Html.TextBox("cnpj") CNPJ </label>
         <input type="submit" value="Pesquisar" />;

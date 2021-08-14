@@ -17,35 +17,58 @@ namespace StandByClientes.Controllers
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index(string razaoSocial,bool Ativo, string cnpj)
+        public async Task<IActionResult> Index(string razaoSocial, int Ativo, string cnpj)
         {
             var q = _context.Cliente.AsQueryable();
 
-            if (!string.IsNullOrEmpty(razaoSocial))
+            if (string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cnpj))
             {
-                q = q.Where(x => x.Razao_Social.Contains(razaoSocial));
-                q = q.OrderBy(c => c.Razao_Social);
-                return View(q.ToList());
+                if (Ativo == 1)
+                {
+                    q = q.Where(x => x.Status_Cliente == true);
+                    q = q.OrderBy(c => c.Status_Cliente);
+                    return View(q.ToList());
+                }
+
+                if (Ativo == -1)
+                {
+                    q = q.Where(x => x.Status_Cliente == false);
+                    q = q.OrderBy(c => c.Status_Cliente);
+                    return View(q.ToList());
+                }
+
+                return View(await _context.Cliente.ToListAsync());
             }
-            if (!string.IsNullOrEmpty(cnpj))
+
+            else
             {
-                q = q.Where(x => x.Cnpj.Contains(cnpj));
-                q = q.OrderBy(c => c.Cnpj);
-                return View(q.ToList());
+                if (!string.IsNullOrEmpty(razaoSocial) && string.IsNullOrEmpty(cnpj))
+                {
+                    q = q.Where(x => x.Razao_Social.Contains(razaoSocial));
+                    q = q.OrderBy(c => c.Razao_Social);
+                    return View(q.ToList());
+                }
+                else if (!string.IsNullOrEmpty(cnpj) && string.IsNullOrEmpty(razaoSocial))
+                {
+                    q = q.Where(x => x.Cnpj.Contains(cnpj));
+                    q = q.OrderBy(c => c.Cnpj);
+                    
+                    return View(q.ToList());
+                }
+                else
+                {
+                    q = q.Where(x => x.Cnpj.Contains(cnpj));
+                    q.Include(t => t.Razao_Social).Where(t => t.Razao_Social.Contains(razaoSocial));
+                    q = q.OrderBy(c=>c.Razao_Social);
+                    if (q==null)
+                    {
+                        return View(await _context.Cliente.ToListAsync());
+                    }
+                    else
+                    return View(q.ToList());
+                }
             }
-            if (!Ativo)
-            {
-                q = q.Where(x => x.Status_Cliente==false);
-                q = q.OrderBy(c => c.Status_Cliente);
-                return View(q.ToList());
-            }
-            if (Ativo)
-            {
-                q = q.Where(x => x.Status_Cliente == true);
-                q = q.OrderBy(c => c.Status_Cliente);
-                return View(q.ToList());
-            }
-            return View(await _context.Cliente.ToListAsync());
+            
         }
 
 
@@ -109,7 +132,7 @@ namespace StandByClientes.Controllers
             }
             else
                 return PartialView("_dadosJaExistentes");
-         
+
             return View(cliente);
         }
 
@@ -152,7 +175,7 @@ namespace StandByClientes.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {                    
+                {
                     cliente.Id = clienteVielModel.Id;
                     cliente.Razao_Social = clienteVielModel.Razao_Social;
                     cliente.Cnpj = clienteVielModel.Cnpj;
@@ -160,7 +183,7 @@ namespace StandByClientes.Controllers
                     cliente.Capital = clienteVielModel.Capital;
                     cliente.Quarentena = clienteVielModel.Quarentena;
                     cliente.Status_Cliente = clienteVielModel.Status_Cliente;
-                    cliente.Classificacao = clienteVielModel.Classificacao;               
+                    cliente.Classificacao = clienteVielModel.Classificacao;
 
                     _context.Update(cliente);
                     await _context.SaveChangesAsync();
