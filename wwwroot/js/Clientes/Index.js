@@ -1,27 +1,26 @@
-﻿var btnPesquisar = '#btnPesquisar';
-var txtRazaoSocial = '#razao-social';
-var txtCnpj = '#cnpj';
-
-$(document).ready(function () {
-	
+﻿$(document).ready(function () {
+  
     $(document).on('click', Pesquisar, function () {
-        alert();
-		var razaoSocial = $(txtRazaoSocial).val();
-		var cnpj = $(txtCnpj).val();
+
+        var Pesquisar = $('#Pesquisar').val();
+        var ativo = document.querySelector('input[name=Ativo]:checked').value
+        var razaoSocial = $('#razaosocial').val();
+        var cnpj = $('#cnpj').val();
 
 		var pesquisarModel = {
 			razaoSocial: razaoSocial,
-			cnpj : cnpj
-		}
+            cnpj: cnpj,
+            Ativo: ativo
+        }
 
         $.ajax({
-            type: 'POST',
-            url: '/Clientes/Index',
             data: pesquisarModel,
+            type: 'POST',
+            url: '/Clientes/Index',            
             async: true,
             cache: false,
             success: function (data) {
-
+               // $("#divClientes").html(data);               
             },
             error: function () {
                 alert('Houve uma falha ao buscar os daos da rota /clientes/pesquisar');
